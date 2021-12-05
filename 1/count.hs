@@ -8,8 +8,11 @@ count (x1:x2:xs)
         | x1 < x2 = 1 + count (x2:xs)
         | otherwise =  count (x2:xs)
 
+rollingSum3 (x1:x2:x3:xs) = (x1+x2+x3):rollingSum3 (x2:x3:xs)
+rollingSum3 xs = []
+ 
 
-convert = count . map (\l -> read l :: Int) . lines
+convert = count . rollingSum3 . map (\l -> read l :: Int) . lines
 
 parse ["-h"] = usage >> exitSuccess 
 parse [] = usage >> exitFailure
